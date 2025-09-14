@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law of Large Numbers - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">שקף 6</div>
+        
+        <div class="slide-header">
+            <h1 class="slide-title">Law of Large Numbers</h1>
+            <p class="slide-subtitle">חוק המספרים הגדולים</p>
+        </div>
+        
+        <div class="slide-content">
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    מה זה חוק המספרים הגדולים?
+                </h3>
+                
+                <div class="hebrew-explanation hebrew-text">
+                    <p><strong>חוק המספרים הגדולים</strong> קובע שככל שמספר הניסויים גדל, כך התוצאות מתקרבות יותר להסתברות הצפויה.</p>
+                    
+                    <p><strong>דוגמה:</strong> מטבע הוגן אמור לתת 50% ראשים, אבל במדגמים קטנים יכולות להיות סטיות גדולות. עם הגדלת המדגם, התוצאות מתכנסות ל-50%.</p>
+                    
+                    <p><strong>חשיבות:</strong></p>
+                    <ul style="margin-right: 2rem; margin-top: 1rem;">
+                        <li>מבסס את תורת ההסתברות מבחינה מעשית</li>
+                        <li>מסביר מדוע ניסויים גדולים יותר מהימנים יותר</li>
+                        <li>בסיס לסטטיסטיקה ומחקר מדעי</li>
+                    </ul>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">lim(n→∞) P(|X̄ₙ - μ| < ε) = 1</div>
+                    <div class="formula-explanation hebrew-text">
+                        כאשר n שואף לאינסוף, הממוצע המדגמי מתכנס לערך הצפוי
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמה מעשית:</div>
+                    <div class="example-content hebrew-text">
+                        • 5 הטלות: יכול להיות 100% ראשים (3.1% סיכוי)<br>
+                        • 1000 הטלות: כנראה קרוב ל-50% ראשים<br>
+                        • 100,000 הטלות: כמעט בוודאות קרוב מאוד ל-50%
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    Python Implementation
+                </h3>
+                
+                <div class="code-container">
+                    <div class="code-header">slide6.py - Law of Large Numbers Demonstration</div>
+                    <div class="code-block">
+import numpy as np
+import matplotlib.pyplot as plt
+
+def law_of_large_numbers_demo():
+    """הדגמת חוק המספרים הגדולים"""
+    print("=== חוק המספרים הגדולים ===")
+    
+    # יצירת וקטור של מספרי הטלות גדלים
+    ns = np.array([2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096])
+    np.random.seed(42)  # לשחזור תוצאות
+    
+    print(f"מספרי הטלות: {ns}")
+    
+    # ביצוע ניסויים
+    heads_count = [np.random.binomial(n, 0.5) for n in ns]
+    proportion_heads = np.array(heads_count) / ns
+    
+    print(f"\nתוצאות:")
+    print("הטלות | ראשים | שיעור")
+    print("-" * 25)
+    
+    for i, n in enumerate(ns):
+        print(f"{n:6d} | {heads_count[i]:6d} | {proportion_heads[i]:.4f}")
+    
+    return ns, proportion_heads
+
+def gambler_fallacy_explanation():
+    """הסבר על כשל המהמר"""
+    print("\n=== כשל המהמר (Gambler's Fallacy) ===")
+    print("טעות נפוצה: אם יצאו 5 ראשים ברצף,")
+    print("האם הסיכוי לעץ בהטלה הבאה גדול יותר?")
+    print("\nתשובה: לא! כל הטלה עצמאית - תמיד 50% לכל צד")
+    
+    # דוגמה
+    print("\nדוגמה:")
+    for i in range(6):
+        if i < 5:
+            print(f"הטלה {i+1}: ראש (50%)")
+        else:
+            print(f"הטלה {i+1}: עדיין 50% לראש ו-50% לעץ!")
+
+# הרצת הדוגמאות
+ns, proportions = law_of_large_numbers_demo()
+gambler_fallacy_explanation()
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(heads on flip n+1) = 0.5</div>
+                    <div class="formula-explanation hebrew-text">
+                        ההסתברות להטלה הבאה אינה תלויה בהטלות הקודמות (עצמאות)
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">כשל המהמר בקזינו:</div>
+                    <div class="example-content hebrew-text">
+                        קזינואים מציגים היסטוריה של אדום/שחור ברולטה כדי לעודד הימורים מוטעים.<br>
+                        המהמרים רואים 5 אדומים ברצף ומהמרים על שחור, אבל הסיכוי עדיין 47.4% לכל צד!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button" onclick="previousSlide()">← הקודם</button>
+            <button class="nav-button active">6</button>
+            <button class="nav-button" onclick="nextSlide()">הבא →</button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            window.location.href = 'slide7.html';
+        }
+        
+        function previousSlide() {
+            window.location.href = 'slide5.html';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate the convergence concept
+            const formulas = document.querySelectorAll('.formula-container');
+            formulas.forEach((formula, index) => {
+                formula.style.opacity = '0';
+                formula.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    formula.style.transition = 'opacity 1s ease, transform 1s ease';
+                    formula.style.opacity = '1';
+                    formula.style.transform = 'translateY(0)';
+                }, (index + 1) * 1200);
+            });
+            
+            // Add pulsing effect to demonstrate convergence
+            const examples = document.querySelectorAll('.example-container');
+            examples.forEach((example, index) => {
+                setTimeout(() => {
+                    example.style.animation = 'pulse 2s ease-in-out infinite';
+                }, index * 800);
+            });
+        });
+        
+        // Add pulse animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+

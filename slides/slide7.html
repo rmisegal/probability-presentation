@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics and Probability Distributions - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">שקף 7</div>
+        
+        <div class="slide-header">
+            <h1 class="slide-title">Statistics and Probability Distributions</h1>
+            <p class="slide-subtitle">סטטיסטיקה והתפלגויות הסתברות</p>
+        </div>
+        
+        <div class="slide-content">
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    מסטטיסטיקה להסתברות
+                </h3>
+                
+                <div class="hebrew-explanation hebrew-text">
+                    <p><strong>סטטיסטיקה</strong> מיישמת את תורת ההסתברות כדי להסיק מסקנות מנתונים עם רמת ביטחון מדידה.</p>
+                    
+                    <p><strong>התפלגות הסתברות:</strong> תיאור גרפי או מתמטי של כל התוצאות האפשריות וההסתברויות שלהן.</p>
+                    
+                    <p><strong>דוגמה מעשית:</strong></p>
+                    <ul style="margin-right: 2rem; margin-top: 1rem;">
+                        <li>1000 ניסויים של 5 הטלות מטבע</li>
+                        <li>יצירת התפלגות של מספר הראשים</li>
+                        <li>השוואה לתיאוריה</li>
+                        <li>בדיקת השערות על הוגנות המטבע</li>
+                    </ul>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(X = k) = C(n,k) × p^k × (1-p)^(n-k)</div>
+                    <div class="formula-explanation hebrew-text">
+                        התפלגות בינומית: הסתברות לקבל k הצלחות ב-n ניסויים
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">שאלת מחקר:</div>
+                    <div class="example-content hebrew-text">
+                        הטלנו מטבע 5 פעמים וקיבלנו 5 ראשים.<br>
+                        האם המטבע הוגן? איך נוכל לענות בביטחון סטטיסטי?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    Python Implementation
+                </h3>
+                
+                <div class="code-container">
+                    <div class="code-header">slide7.py - Statistics and Probability Distributions</div>
+                    <div class="code-block">
+import numpy as np
+import matplotlib.pyplot as plt
+
+def create_probability_distribution():
+    """יצירת התפלגות הסתברות מניסויים"""
+    print("=== יצירת התפלגות הסתברות ===")
+    
+    # ביצוע 1000 ניסויים של 5 הטלות מטבע
+    n_experiments = 1000
+    n_flips = 5
+    
+    heads_count = np.random.binomial(n_flips, 0.5, n_experiments)
+    
+    # ספירת תוצאות
+    heads, event_count = np.unique(heads_count, return_counts=True)
+    event_proba = event_count / n_experiments
+    
+    print(f"תוצאות {n_experiments} ניסויים של {n_flips} הטלות:")
+    print("ראשים | מספר | הסתברות")
+    print("-" * 30)
+    
+    for i, h in enumerate(heads):
+        print(f"{h:6d} | {event_count[i]:5d} | {event_proba[i]:8.3f}")
+    
+    return heads, event_proba
+
+def test_coin_fairness():
+    """בדיקת הוגנות מטבע"""
+    print("\n=== בדיקת הוגנות מטבע ===")
+    
+    # תרחיש: 5 ראשים ב-5 הטלות
+    observed_heads = 5
+    n_flips = 5
+    
+    # חישוב הסתברות לקבל 5 ראשים במטבע הוגן
+    from math import factorial
+    prob_5_heads = factorial(5) // (factorial(5) * factorial(0)) * (0.5**5) * (0.5**0)
+    
+    print(f"תצפית: {observed_heads} ראשים ב-{n_flips} הטלות")
+    print(f"הסתברות לקבל 5 ראשים במטבע הוגן: {prob_5_heads:.4f}")
+    print(f"זה אומר: {prob_5_heads*100:.1f}% סיכוי")
+    
+    if prob_5_heads < 0.05:
+        print("מסקנה: תוצאה נדירה - יש ספק בהוגנות המטבע")
+    else:
+        print("מסקנה: תוצאה סבירה למטבע הוגן")
+
+# הרצת הדוגמאות
+heads, probs = create_probability_distribution()
+test_coin_fairness()
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">Confidence Level = 1 - α</div>
+                    <div class="formula-explanation hebrew-text">
+                        רמת ביטחון סטטיסטית: ככל ש-α קטן יותר, הביטחון גדול יותר
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">פרשנות סטטיסטית:</div>
+                    <div class="example-content hebrew-text">
+                        P(5 ראשים) = 1/32 = 0.031 = 3.1%<br><br>
+                        • אם α = 0.05 (95% ביטחון): התוצאה מובהקת<br>
+                        • אם α = 0.01 (99% ביטחון): התוצאה לא מובהקת<br><br>
+                        המסקנה תלויה ברמת הביטחון שבחרנו מראש!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button" onclick="previousSlide()">← הקודם</button>
+            <button class="nav-button active">7</button>
+            <button class="nav-button" onclick="nextSlide()">הבא →</button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            window.location.href = 'slide8.html';
+        }
+        
+        function previousSlide() {
+            window.location.href = 'slide6.html';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate statistical concepts
+            const formulas = document.querySelectorAll('.formula-container');
+            formulas.forEach((formula, index) => {
+                formula.style.opacity = '0';
+                formula.style.transform = 'rotateY(-15deg)';
+                
+                setTimeout(() => {
+                    formula.style.transition = 'opacity 1s ease, transform 1s ease';
+                    formula.style.opacity = '1';
+                    formula.style.transform = 'rotateY(0deg)';
+                }, (index + 1) * 1000);
+            });
+            
+            // Add data visualization effect
+            const examples = document.querySelectorAll('.example-container');
+            examples.forEach((example, index) => {
+                example.addEventListener('mouseenter', function() {
+                    this.style.background = 'rgba(59, 130, 246, 0.2)';
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                example.addEventListener('mouseleave', function() {
+                    this.style.background = 'rgba(219, 234, 254, 0.1)';
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Statistical significance indicator
+            setTimeout(() => {
+                const significanceIndicator = document.createElement('div');
+                significanceIndicator.innerHTML = '📊';
+                significanceIndicator.style.position = 'fixed';
+                significanceIndicator.style.top = '20px';
+                significanceIndicator.style.left = '20px';
+                significanceIndicator.style.fontSize = '2rem';
+                significanceIndicator.style.animation = 'bounce 2s ease-in-out infinite';
+                document.body.appendChild(significanceIndicator);
+                
+                setTimeout(() => {
+                    significanceIndicator.remove();
+                }, 5000);
+            }, 2000);
+        });
+        
+        // Add bounce animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-10px); }
+                60% { transform: translateY(-5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+
