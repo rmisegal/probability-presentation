@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Independent Observations - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">שקף 3</div>
+        
+        <div class="slide-header">
+            <h1 class="slide-title">Multiple Independent Observations</h1>
+            <p class="slide-subtitle">תצפיות עצמאיות מרובות</p>
+        </div>
+        
+        <div class="slide-content">
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    עצמאות בהסתברות
+                </h3>
+                
+                <div class="hebrew-explanation hebrew-text">
+                    <p><strong>תצפיות עצמאיות:</strong> כאשר תוצאת ניסוי אחד אינה משפיעה על תוצאת ניסוי אחר.</p>
+                    
+                    <p><strong>דוגמאות לעצמאות:</strong></p>
+                    <ul style="margin-right: 2rem; margin-top: 1rem;">
+                        <li>הטלות מטבע רצופות</li>
+                        <li>הטלות קובייה רצופות</li>
+                        <li>משיכת קלפים עם החזרה</li>
+                    </ul>
+                    
+                    <p><strong>דוגמאות לאי-עצמאות:</strong></p>
+                    <ul style="margin-right: 2rem; margin-top: 1rem;">
+                        <li>משיכת קלפים ללא החזרה</li>
+                        <li>בחירת כדורים מקופסה ללא החזרה</li>
+                    </ul>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(A and B) = P(A) × P(B)</div>
+                    <div class="formula-explanation hebrew-text">
+                        עבור אירועים עצמאיים: הסתברות שני אירועים = מכפלת ההסתברויות
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמאות חישוב:</div>
+                    <div class="example-content hebrew-text">
+                        • P(HH) = P(H) × P(H) = 1/2 × 1/2 = 1/4<br>
+                        • P(HHH) = 1/2 × 1/2 × 1/2 = 1/8<br>
+                        • P(exactly 2H in 3 tosses) = 3/8<br>
+                        • P(at least 2H in 3 tosses) = 4/8 = 1/2
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    Python Implementation
+                </h3>
+                
+                <div class="code-container">
+                    <div class="code-header">slide3.py - Multiple Independent Observations</div>
+                    <div class="code-block">
+import itertools
+from fractions import Fraction
+
+def multiple_coin_flips(n):
+    """חישוב כל התוצאות האפשריות ל-n הטלות"""
+    outcomes = list(itertools.product(['H', 'T'], repeat=n))
+    print(f"הטלת {n} מטבעות:")
+    print(f"מספר תוצאות אפשריות: {len(outcomes)}")
+    print(f"תוצאות: {outcomes}")
+    
+    # ספירת ראשים בכל תוצאה
+    heads_count = {}
+    for outcome in outcomes:
+        h_count = outcome.count('H')
+        if h_count not in heads_count:
+            heads_count[h_count] = 0
+        heads_count[h_count] += 1
+    
+    print(f"\nהתפלגות מספר ראשים:")
+    for heads, count in sorted(heads_count.items()):
+        prob = count / len(outcomes)
+        print(f"{heads} ראשים: {count} דרכים, P = {prob:.3f}")
+
+def consecutive_heads_probability():
+    """הסתברות לרצפי ראשים"""
+    print("\n=== הסתברות רצפי ראשים ===")
+    
+    for n in range(1, 6):
+        prob = (1/2) ** n
+        print(f"P({'H' * n}) = (1/2)^{n} = {prob:.4f}")
+
+# דוגמה לשימוש
+multiple_coin_flips(3)
+consecutive_heads_probability()
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(exactly k successes in n trials) = C(n,k) × p^k × (1-p)^(n-k)</div>
+                    <div class="formula-explanation hebrew-text">
+                        התפלגות בינומית: הסתברות לקבל בדיוק k הצלחות ב-n ניסויים
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">מרחב מדגם ל-3 הטלות:</div>
+                    <div class="example-content" style="font-family: monospace; direction: ltr; text-align: left;">
+                        Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}<br>
+                        |Ω| = 2³ = 8<br><br>
+                        0 heads: {TTT} → 1 way → P = 1/8<br>
+                        1 head: {HTT, THT, TTH} → 3 ways → P = 3/8<br>
+                        2 heads: {HHT, HTH, THH} → 3 ways → P = 3/8<br>
+                        3 heads: {HHH} → 1 way → P = 1/8
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button" onclick="previousSlide()">← הקודם</button>
+            <button class="nav-button active">3</button>
+            <button class="nav-button" onclick="nextSlide()">הבא →</button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            window.location.href = 'slide4.html';
+        }
+        
+        function previousSlide() {
+            window.location.href = 'slide2.html';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate the sample space example
+            const sampleSpaceExample = document.querySelector('.example-content[style*="monospace"]');
+            if (sampleSpaceExample) {
+                sampleSpaceExample.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+                    this.style.transition = 'background-color 0.3s ease';
+                });
+                
+                sampleSpaceExample.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                });
+            }
+            
+            // Progressive reveal of formulas
+            const formulas = document.querySelectorAll('.formula-container');
+            formulas.forEach((formula, index) => {
+                formula.style.opacity = '0';
+                formula.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    formula.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    formula.style.opacity = '1';
+                    formula.style.transform = 'translateY(0)';
+                }, (index + 1) * 1000);
+            });
+        });
+    </script>
+</body>
+</html>
+

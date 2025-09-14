@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combining Probabilities - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">שקף 4</div>
+        
+        <div class="slide-header">
+            <h1 class="slide-title">Combining Probabilities</h1>
+            <p class="slide-subtitle">שילוב הסתברויות</p>
+        </div>
+        
+        <div class="slide-content">
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    כללי שילוב הסתברויות
+                </h3>
+                
+                <div class="hebrew-explanation hebrew-text">
+                    <p><strong>כלל הכפל (עבור אירועים עצמאיים):</strong></p>
+                    <p>כאשר אירועים עצמאיים, ההסתברות שכולם יתרחשו היא מכפלת ההסתברויות הבודדות.</p>
+                    
+                    <p><strong>כלל החיבור (עבור אירועים זרים):</strong></p>
+                    <p>כאשר אירועים זרים (לא יכולים לקרות יחד), ההסתברות שאחד מהם יתרחש היא סכום ההסתברויות.</p>
+                    
+                    <p><strong>כלל החיבור הכללי:</strong></p>
+                    <p>עבור אירועים כלליים, יש להפחית את ההסתברות לחיתוך כדי למנוע ספירה כפולה.</p>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(A ∩ B) = P(A) × P(B)</div>
+                    <div class="formula-explanation hebrew-text">
+                        כלל הכפל לאירועים עצמאיים
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</div>
+                    <div class="formula-explanation hebrew-text">
+                        כלל החיבור הכללי (נוסחת האיחוד)
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמה: 5 ראשים רצופים</div>
+                    <div class="example-content hebrew-text">
+                        P(HHHHH) = P(HH) × P(HHH)<br>
+                        = (1/4) × (1/8) = 1/32 ≈ 0.031<br><br>
+                        או: P(HHHHH) = (1/2)⁵ = 1/32
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    Python Implementation
+                </h3>
+                
+                <div class="code-container">
+                    <div class="code-header">slide4.py - Combining Probabilities</div>
+                    <div class="code-block">
+from fractions import Fraction
+
+def multiplication_rule():
+    """כלל הכפל לאירועים עצמאיים"""
+    print("=== כלל הכפל ===")
+    
+    # הטלת מטבע
+    p_heads = Fraction(1, 2)
+    print(f"P(H) = {p_heads} = {float(p_heads):.3f}")
+    
+    # רצפי ראשים
+    for n in range(1, 6):
+        p_sequence = p_heads ** n
+        sequence = 'H' * n
+        print(f"P({sequence}) = (1/2)^{n} = {p_sequence} = {float(p_sequence):.4f}")
+
+def addition_rule():
+    """כלל החיבור"""
+    print("\n=== כלל החיבור ===")
+    
+    # הטלת קובייה
+    print("הטלת קובייה:")
+    p_even = Fraction(3, 6)  # 2,4,6
+    p_greater_4 = Fraction(2, 6)  # 5,6
+    p_both = Fraction(1, 6)  # 6
+    
+    p_union = p_even + p_greater_4 - p_both
+    
+    print(f"P(זוגי) = {p_even} = {float(p_even):.3f}")
+    print(f"P(>4) = {p_greater_4} = {float(p_greater_4):.3f}")
+    print(f"P(זוגי ∩ >4) = {p_both} = {float(p_both):.3f}")
+    print(f"P(זוגי ∪ >4) = {p_union} = {float(p_union):.3f}")
+
+def card_example():
+    """דוגמת קלפים"""
+    print("\n=== דוגמת קלפים ===")
+    
+    p_ace = Fraction(4, 52)
+    p_spade = Fraction(13, 52)
+    p_ace_spade = Fraction(1, 52)
+    
+    p_ace_or_spade = p_ace + p_spade - p_ace_spade
+    
+    print(f"P(אס או עלה) = {p_ace_or_spade} = {float(p_ace_or_spade):.3f}")
+
+# הרצת הדוגמאות
+multiplication_rule()
+addition_rule()
+card_example()
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(A₁ ∩ A₂ ∩ ... ∩ Aₙ) = P(A₁) × P(A₂) × ... × P(Aₙ)</div>
+                    <div class="formula-explanation hebrew-text">
+                        כלל הכפל למספר אירועים עצמאיים
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמאות נוספות:</div>
+                    <div class="example-content hebrew-text">
+                        • P(3 אסים ברצף עם החזרה) = (4/52)³<br>
+                        • P(זוגי בקובייה או ראש במטבע) = ?<br>
+                        • P(לפחות אחד מ-3 ניסויים יצליח) = 1 - P(כולם נכשלים)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button" onclick="previousSlide()">← הקודם</button>
+            <button class="nav-button active">4</button>
+            <button class="nav-button" onclick="nextSlide()">הבא →</button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            window.location.href = 'slide5.html';
+        }
+        
+        function previousSlide() {
+            window.location.href = 'slide3.html';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Interactive animations and effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progressive formula reveal
+            const formulas = document.querySelectorAll('.formula-container');
+            formulas.forEach((formula, index) => {
+                formula.style.opacity = '0';
+                formula.style.transform = 'scale(0.9)';
+                
+                setTimeout(() => {
+                    formula.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    formula.style.opacity = '1';
+                    formula.style.transform = 'scale(1)';
+                }, (index + 1) * 800);
+                
+                // Add hover effect
+                formula.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 8px 25px rgba(59, 130, 246, 0.3)';
+                });
+                
+                formula.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'var(--shadow-lg)';
+                });
+            });
+            
+            // Animate code container
+            const codeContainer = document.querySelector('.code-container');
+            codeContainer.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            codeContainer.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+            
+            // Interactive examples
+            const examples = document.querySelectorAll('.example-container');
+            examples.forEach(example => {
+                example.addEventListener('click', function() {
+                    this.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
+                    setTimeout(() => {
+                        this.style.backgroundColor = 'rgba(219, 234, 254, 0.1)';
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

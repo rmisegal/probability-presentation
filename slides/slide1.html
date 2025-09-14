@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Probability Theory Is - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">שקף 1</div>
+        
+        <div class="slide-header">
+            <h1 class="slide-title">What Probability Theory Is</h1>
+            <p class="slide-subtitle">מה היא תורת ההסתברות</p>
+        </div>
+        
+        <div class="slide-content">
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    הגדרה ומושגי יסוד
+                </h3>
+                
+                <div class="hebrew-explanation hebrew-text">
+                    <p>תורת ההסתברות היא ענף במתמטיקה העוסק במדידה וניתוח של אי-ודאות. היא מספקת לנו כלים מתמטיים לכמת את הסיכוי שאירוע מסוים יתרחש.</p>
+                    
+                    <p>תורת ההסתברות חיונית בתחומים רבים:</p>
+                    <ul style="margin-right: 2rem; margin-top: 1rem;">
+                        <li>למידת מכונה ובינה מלאכותית</li>
+                        <li>סטטיסטיקה וניתוח נתונים</li>
+                        <li>פיזיקה ומדעי הטבע</li>
+                        <li>כלכלה ומימון</li>
+                        <li>רפואה ואפידמיולוגיה</li>
+                    </ul>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמאות מהחיים האמיתיים:</div>
+                    <div class="example-content hebrew-text">
+                        • מה הסיכוי שיירד גשם מחר?<br>
+                        • מה ההסתברות לזכות בלוטו?<br>
+                        • מה הסיכוי שמטופל יחלים מטיפול מסוים?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    Python Code Example
+                </h3>
+                
+                <div class="code-container">
+                    <div class="code-header">slide1.py - Basic Probability Concepts</div>
+                    <div class="code-block">
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+
+def basic_probability_demo():
+    """
+    הדגמה בסיסית של מושגי הסתברות
+    Basic demonstration of probability concepts
+    """
+    print("=== תורת ההסתברות - דוגמאות בסיסיות ===")
+    print("=== Probability Theory - Basic Examples ===")
+    
+    # הטלת מטבע - Coin flip
+    print("\n1. הטלת מטבע (Coin Flip):")
+    coin_results = []
+    for i in range(1000):
+        result = random.choice(['ראש', 'עץ'])  # Heads, Tails
+        coin_results.append(result)
+    
+    heads_count = coin_results.count('ראש')
+    probability_heads = heads_count / 1000
+    
+    print(f"מספר 'ראש' ב-1000 הטלות: {heads_count}")
+    print(f"הסתברות ניסיונית ל'ראש': {probability_heads:.3f}")
+    print(f"הסתברות תיאורטית ל'ראש': 0.500")
+    
+    # הטלת קובייה - Dice roll
+    print("\n2. הטלת קובייה (Dice Roll):")
+    dice_results = [random.randint(1, 6) for _ in range(1000)]
+    
+    for number in range(1, 7):
+        count = dice_results.count(number)
+        probability = count / 1000
+        print(f"מספר {number}: {count} פעמים, הסתברות: {probability:.3f}")
+    
+    return coin_results, dice_results
+
+# הרצת הדוגמה
+if __name__ == "__main__":
+    coin_data, dice_data = basic_probability_demo()
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(A) = Number of favorable outcomes / Total number of possible outcomes</div>
+                    <div class="formula-explanation hebrew-text">
+                        נוסחת ההסתברות הבסיסית: מספר התוצאות הרצויות חלקי מספר התוצאות האפשריות
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button" onclick="previousSlide()">← הקודם</button>
+            <button class="nav-button active">1</button>
+            <button class="nav-button" onclick="nextSlide()">הבא →</button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            window.location.href = 'slide2.html';
+        }
+        
+        function previousSlide() {
+            window.location.href = 'opening.html';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Add interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeContainer = document.querySelector('.code-container');
+            const formulaContainer = document.querySelector('.formula-container');
+            
+            // Animate code container on scroll into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease-out';
+                    }
+                });
+            });
+            
+            observer.observe(codeContainer);
+            observer.observe(formulaContainer);
+            
+            // Add hover effects
+            codeContainer.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            codeContainer.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
+

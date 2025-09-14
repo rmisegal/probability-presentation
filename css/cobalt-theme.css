@@ -1,0 +1,370 @@
+/*
+Cobalt Theme for Probability Presentation
+Copyright (c) 2025 Dr. Yoram Segal. All rights reserved.
+כל הזכויות שמורות לד"ר יורם סגל
+*/
+
+:root {
+  /* Cobalt Color Palette */
+  --cobalt-primary: #0047AB;
+  --cobalt-secondary: #1E3A8A;
+  --cobalt-accent: #3B82F6;
+  --cobalt-light: #DBEAFE;
+  --cobalt-dark: #1E293B;
+  --cobalt-gradient: linear-gradient(135deg, #0047AB 0%, #1E3A8A 50%, #3B82F6 100%);
+  
+  /* Typography */
+  --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-hebrew: 'Arial', 'Noto Sans Hebrew', sans-serif;
+  --font-code: 'Consolas', 'Monaco', 'Courier New', monospace;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 71, 171, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 71, 171, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 71, 171, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--cobalt-gradient);
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Slide Container */
+.slide {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+  position: relative;
+  animation: slideIn 0.8s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Headers */
+.slide-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  animation: fadeInDown 1s ease-out 0.3s both;
+}
+
+.slide-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #DBEAFE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slide-subtitle {
+  font-size: 1.5rem;
+  color: var(--cobalt-light);
+  font-weight: 300;
+}
+
+/* Content Areas */
+.slide-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  width: 100%;
+  max-width: 1400px;
+  animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.content-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: var(--spacing-lg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 71, 171, 0.3);
+}
+
+/* Hebrew Text */
+.hebrew-text {
+  font-family: var(--font-hebrew);
+  direction: rtl;
+  text-align: right;
+  line-height: 1.8;
+  font-size: 1.2rem;
+}
+
+.hebrew-explanation {
+  background: rgba(59, 130, 246, 0.2);
+  padding: var(--spacing-md);
+  border-radius: 15px;
+  border-right: 4px solid var(--cobalt-accent);
+  margin: var(--spacing-md) 0;
+}
+
+/* Formulas */
+.formula-container {
+  background: rgba(30, 58, 138, 0.3);
+  padding: var(--spacing-md);
+  border-radius: 15px;
+  margin: var(--spacing-md) 0;
+  text-align: center;
+  border: 2px solid var(--cobalt-accent);
+}
+
+.formula {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  margin: var(--spacing-sm) 0;
+}
+
+.formula-explanation {
+  font-size: 1rem;
+  color: var(--cobalt-light);
+  margin-top: var(--spacing-sm);
+  font-style: italic;
+}
+
+/* Code Blocks */
+.code-container {
+  background: #1a1a1a;
+  border-radius: 15px;
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border: 1px solid var(--cobalt-accent);
+  position: relative;
+  overflow: hidden;
+}
+
+.code-header {
+  background: var(--cobalt-secondary);
+  margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.code-header::before {
+  content: "🐍";
+  font-size: 1.2rem;
+}
+
+.code-block {
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+/* Examples */
+.example-container {
+  background: rgba(219, 234, 254, 0.1);
+  border-radius: 15px;
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  border-left: 4px solid var(--cobalt-light);
+}
+
+.example-title {
+  font-weight: 600;
+  color: var(--cobalt-light);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.example-content {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Navigation */
+.slide-navigation {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-sm);
+  z-index: 1000;
+}
+
+.nav-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.nav-button.active {
+  background: var(--cobalt-accent);
+  border-color: var(--cobalt-accent);
+}
+
+/* Slide Number */
+.slide-number {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.2);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 20px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  bottom: var(--spacing-sm);
+  left: var(--spacing-lg);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  transform: rotate(-2deg);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .slide-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .slide-title {
+    font-size: 2.5rem;
+  }
+  
+  .slide {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-title {
+    font-size: 2rem;
+  }
+  
+  .hebrew-text {
+    font-size: 1rem;
+  }
+  
+  .formula {
+    font-size: 1.4rem;
+  }
+  
+  .slide {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Special Effects */
+.glow-effect {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.slide-transition {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Loading Animation */
+.loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

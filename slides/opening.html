@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Probability - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+    <style>
+        .opening-slide {
+            background: var(--cobalt-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .opening-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: backgroundMove 20s linear infinite;
+        }
+        
+        @keyframes backgroundMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-10px) translateY(-10px); }
+        }
+        
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            background: linear-gradient(45deg, #ffffff, #DBEAFE, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8)); }
+        }
+        
+        .lecturer-info {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: var(--spacing-xl);
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-lg);
+            animation: floatUp 2s ease-out 1s both;
+            max-width: 600px;
+        }
+        
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .lecturer-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .lecturer-title {
+            font-size: 1.3rem;
+            color: var(--cobalt-light);
+            font-weight: 400;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .course-info {
+            background: rgba(30, 58, 138, 0.4);
+            border-radius: 15px;
+            padding: var(--spacing-md);
+            border: 1px solid var(--cobalt-accent);
+        }
+        
+        .course-title {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .floating-symbol {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-symbol:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-symbol:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .floating-symbol:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+        
+        .floating-symbol:nth-child(4) {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.3;
+            }
+        }
+        
+        .start-button {
+            background: var(--cobalt-accent);
+            color: white;
+            border: none;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s infinite;
+        }
+        
+        .start-button:hover {
+            background: #2563EB;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide opening-slide">
+        <div class="floating-elements">
+            <div class="floating-symbol">∑</div>
+            <div class="floating-symbol">∫</div>
+            <div class="floating-symbol">π</div>
+            <div class="floating-symbol">∞</div>
+        </div>
+        
+        <div class="slide-number">שקף פתיחה</div>
+        
+        <div class="slide-header">
+            <h1 class="main-title">Introduction to Probability</h1>
+        </div>
+        
+        <div class="lecturer-info">
+            <h2 class="lecturer-name">ד"ר יורם סגל</h2>
+            <p class="lecturer-title">Dr. Yoram Segal</p>
+            
+            <div class="course-info">
+                <p class="course-title">הסתברות ותורת המידע</p>
+                <p class="course-title">Probability & Information Theory</p>
+            </div>
+            
+            <button class="start-button" onclick="startPresentation()">
+                התחל מצגת | Start Presentation
+            </button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        // Animation on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add entrance animations
+            const elements = document.querySelectorAll('.lecturer-info, .main-title');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.5}s`;
+            });
+        });
+
+        function startPresentation() {
+            // Smooth transition to first slide
+            document.body.style.transition = 'opacity 0.5s ease-out';
+            document.body.style.opacity = '0';
+            
+            setTimeout(() => {
+                window.location.href = 'slide1.html';
+            }, 500);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
+                startPresentation();
+            }
+        });
+
+        // Add interactive hover effects
+        document.querySelector('.lecturer-info').addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)';
+        });
+
+        document.querySelector('.lecturer-info').addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    </script>
+</body>
+</html>
+

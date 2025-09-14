@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events and Sample Spaces - Dr. Yoram Segal</title>
+    <link rel="stylesheet" href="../css/cobalt-theme.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">שקף 2</div>
+        
+        <div class="slide-header">
+            <h1 class="slide-title">Events and Sample Spaces</h1>
+            <p class="slide-subtitle">אירועים ומרחב המדגם</p>
+        </div>
+        
+        <div class="slide-content">
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    מושגי יסוד
+                </h3>
+                
+                <div class="hebrew-explanation hebrew-text">
+                    <p><strong>מרחב המדגם (Sample Space - Ω):</strong> קבוצת כל התוצאות האפשריות של ניסוי.</p>
+                    
+                    <p><strong>אירוע (Event):</strong> תת-קבוצה של מרחב המדגם - קבוצת תוצאות מעניינות אותנו.</p>
+                    
+                    <p><strong>דוגמאות:</strong></p>
+                    <ul style="margin-right: 2rem; margin-top: 1rem;">
+                        <li><strong>הטלת מטבע:</strong> Ω = {H, T}</li>
+                        <li><strong>הטלת קובייה:</strong> Ω = {1, 2, 3, 4, 5, 6}</li>
+                        <li><strong>משיכת קלף:</strong> Ω = {52 קלפים שונים}</li>
+                    </ul>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(event) = |event| / |Ω|</div>
+                    <div class="formula-explanation hebrew-text">
+                        הסתברות אירוע = מספר התוצאות באירוע חלקי מספר התוצאות במרחב המדגם
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמאות חישוב:</div>
+                    <div class="example-content hebrew-text">
+                        • P(H) = 1/2 = 0.5<br>
+                        • P(ace of spades) = 1/52 ≈ 0.019<br>
+                        • P(ace) = 4/52 ≈ 0.077<br>
+                        • P(spade) = 13/52 = 0.25
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h3 style="color: var(--cobalt-light); margin-bottom: var(--spacing-md); font-size: 1.5rem;">
+                    Python Implementation
+                </h3>
+                
+                <div class="code-container">
+                    <div class="code-header">slide2.py - Events and Sample Spaces</div>
+                    <div class="code-block">
+import random
+from fractions import Fraction
+
+def coin_flip_example():
+    """דוגמת הטלת מטבע"""
+    print("=== הטלת מטבע ===")
+    sample_space = ['H', 'T']  # מרחב המדגם
+    print(f"מרחב המדגם: {sample_space}")
+    
+    # אירוע: קבלת ראש
+    event_heads = ['H']
+    prob_heads = len(event_heads) / len(sample_space)
+    print(f"P(H) = {len(event_heads)}/{len(sample_space)} = {prob_heads}")
+
+def card_deck_example():
+    """דוגמת חפיסת קלפים"""
+    print("\n=== חפיסת קלפים ===")
+    
+    # יצירת חפיסה
+    suits = ['♠', '♥', '♦', '♣']  # סמלים
+    ranks = ['A', '2', '3', '4', '5', '6', '7', 
+             '8', '9', '10', 'J', 'Q', 'K']
+    
+    deck = [(rank, suit) for suit in suits for rank in ranks]
+    print(f"גודל מרחב המדגם: |Ω| = {len(deck)}")
+    
+    # אירועים שונים
+    aces = [card for card in deck if card[0] == 'A']
+    spades = [card for card in deck if card[1] == '♠']
+    ace_of_spades = [('A', '♠')]
+    
+    print(f"P(ace) = {len(aces)}/{len(deck)} = {len(aces)/len(deck):.3f}")
+    print(f"P(spade) = {len(spades)}/{len(deck)} = {len(spades)/len(deck):.3f}")
+    print(f"P(ace of spades) = {len(ace_of_spades)}/{len(deck)} = {len(ace_of_spades)/len(deck):.3f}")
+
+def dice_example():
+    """דוגמת הטלת קובייה"""
+    print("\n=== הטלת קובייה ===")
+    sample_space = list(range(1, 7))
+    print(f"מרחב המדגם: {sample_space}")
+    
+    # אירועים
+    even_numbers = [2, 4, 6]
+    greater_than_4 = [5, 6]
+    
+    print(f"P(זוגי) = {len(even_numbers)}/{len(sample_space)} = {len(even_numbers)/len(sample_space):.3f}")
+    print(f"P(>4) = {len(greater_than_4)}/{len(sample_space)} = {len(greater_than_4)/len(sample_space):.3f}")
+                    </div>
+                </div>
+                
+                <div class="formula-container">
+                    <div class="formula">P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</div>
+                    <div class="formula-explanation hebrew-text">
+                        הסתברות איחוד אירועים (או) = סכום ההסתברויות פחות החיתוך
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-title">דוגמה מורכבת:</div>
+                    <div class="example-content hebrew-text">
+                        P(ace OR spade) = P(ace) + P(spade) - P(ace AND spade)<br>
+                        = 4/52 + 13/52 - 1/52 = 16/52 ≈ 0.307
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-navigation">
+            <button class="nav-button" onclick="previousSlide()">← הקודם</button>
+            <button class="nav-button active">2</button>
+            <button class="nav-button" onclick="nextSlide()">הבא →</button>
+        </div>
+        
+        <div class="watermark">© כל הזכויות שמורות לד"ר יורם סגל</div>
+    </div>
+
+    <script>
+        function nextSlide() {
+            window.location.href = 'slide3.html';
+        }
+        
+        function previousSlide() {
+            window.location.href = 'slide1.html';
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate formulas on hover
+            const formulas = document.querySelectorAll('.formula-container');
+            formulas.forEach(formula => {
+                formula.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'transform 0.3s ease';
+                    this.classList.add('glow-effect');
+                });
+                
+                formula.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.classList.remove('glow-effect');
+                });
+            });
+            
+            // Animate examples
+            const examples = document.querySelectorAll('.example-container');
+            examples.forEach((example, index) => {
+                example.style.animationDelay = `${index * 0.2}s`;
+                example.style.animation = 'fadeInUp 0.8s ease-out both';
+            });
+        });
+    </script>
+</body>
+</html>
+
